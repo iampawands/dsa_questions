@@ -37,48 +37,44 @@ class RearrangeGivenLinkedListInZigZagFashion {
 	}
 
 	void rearrange(Node node) {
-//1) Find the middle point using tortoise and hare method
-		Node slow = node, fast = slow.next;
-		while (fast != null && fast.next != null) {
-			slow = slow.next;
-			fast = fast.next.next;
-		}
-//2) Split the linked list in two halves
-//node1, head of first half 1->> 2-> 3
-		Node node1 = node;
-		Node node2 = slow.next;
-		slow.next = null;
-		node2 = reverselist(node2);
-//4) Merge alternate nodes
-		node = new Node(0); // Assign dummy Node
-//curr is the pointer to this dummy Node, which will
-//be used to form the new list
-		Node curr = node;
-		while (node1 != null || node2 != null) {
-//First add the element from first list
-			if (node1 != null) {
-				curr.next = node1;
-				curr = curr.next;
-				node1 = node1.next;
+		if(node==null || node.next==null) return;
+		boolean greaterThanExpected = false;
+		if(node.data>node.next.data) head = node.next;
+		Node prevOfNode = null;
+		while(node.next!=null) {
+			if(greaterThanExpected && node.data<node.next.data) {
+				Node a = node;
+				Node b = node.next;
+				Node nextOfB = b.next;
+				b.next = a;
+				a.next = nextOfB;
+				if(prevOfNode!=null) prevOfNode.next = b;
+				node = b;
+			}else if(!greaterThanExpected && node.data>node.next.data) {
+				Node a = node;
+				Node b = node.next;
+				Node nextOfB = b.next;
+				b.next = a;
+				a.next = nextOfB;
+				if(prevOfNode!=null) prevOfNode.next = b;
+				node = b;
 			}
-//Then add the element from second list
-			if (node2 != null) {
-				curr.next = node2;
-				curr = curr.next;
-				node2 = node2.next;
-			}
+			greaterThanExpected=!greaterThanExpected;
+			prevOfNode=node;
+			node = node.next;
 		}
-//Assign the head of the new list to head pointer
-		node = node.next;
+	
 	}
 
 	public static void main(String[] args) {
 		RearrangeGivenLinkedListInZigZagFashion list = new RearrangeGivenLinkedListInZigZagFashion();
-		list.head = new Node(1);
-		list.head.next = new Node(2);
-		list.head.next.next = new Node(3);
-		list.head.next.next.next = new Node(4);
-		list.head.next.next.next.next = new Node(5);
+		list.head = new Node(4);
+		list.head.next = new Node(3);
+		list.head.next.next = new Node(7);
+		list.head.next.next.next = new Node(8);
+		list.head.next.next.next.next = new Node(6);
+		list.head.next.next.next.next.next = new Node(2);
+		list.head.next.next.next.next.next.next = new Node(1);
 		list.printlist(head); // print original list
 		list.rearrange(head); // rearrange list as per ques
 		System.out.println("");

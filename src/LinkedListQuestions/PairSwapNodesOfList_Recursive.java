@@ -1,6 +1,6 @@
 package LinkedListQuestions;
 
-class PairSwapNodesOfList {
+class PairSwapNodesOfList_Recursive {
 	static Node head;
 
 	static class Node {
@@ -15,29 +15,16 @@ class PairSwapNodesOfList {
 
 	/* Function to pairwise swap elements of a linked list */
 	Node pairWiseSwap(Node node) {
-		
 		if(node==null || node.next==null) return node;
-		
+		Node temp = node.next.next;
 		Node a = node;
 		Node b = node.next;
-		node = b;
-		while(true) {
-			Node next  = b.next;
-			b.next = a;
-			
-			if(next==null || next.next==null) {
-				a.next = next;
-				break;
-			}
-			
-			a.next = next.next;
-			
-			a = next;
-			b = next.next;
-			
-		}
+		Node res = b;
 		
-		return node;
+		b.next = a;
+		a.next = pairWiseSwap(temp);
+		
+		return res;
 	}
 
 	/* Function to print nodes in a given linked list */
@@ -52,7 +39,7 @@ class PairSwapNodesOfList {
 	public static void main(String[] args) {
 ///* The constructed linked list is:
 
-		PairSwapNodesOfList list = new PairSwapNodesOfList();
+		PairSwapNodesOfList_Recursive list = new PairSwapNodesOfList_Recursive();
 		list.head = new Node(1);
 		list.head.next = new Node(2);
 		list.head.next.next = new Node(3);

@@ -1,5 +1,7 @@
 package LinkedListQuestions;
 
+import LinkedListQuestions.PointArbitPointerToGreatestElementOnRight.Node;
+
 class RearrangeGivenLinkedList_Efficient {
 	static Node head; // head of list
 	/* Node Class */
@@ -15,6 +17,19 @@ class RearrangeGivenLinkedList_Efficient {
 		}
 	}
 
+	 private Node reverse(Node head) {
+			Node prev=null;
+			Node next=null;
+			
+			while(head!=null) {
+				next = head.next;
+				head.next = prev;
+				prev= head;
+				head = next;
+			}
+			return prev;
+		 }
+	
 	void printlist(Node node) {
 		if (node == null) {
 			return;
@@ -23,6 +38,7 @@ class RearrangeGivenLinkedList_Efficient {
 			System.out.print(node.data + "->");
 			node = node.next;
 		}
+		System.out.println();
 	}
 
 	Node reverselist(Node node) {
@@ -38,39 +54,45 @@ class RearrangeGivenLinkedList_Efficient {
 	}
 
 	void rearrange(Node node) {
-//1) Find the middle point using tortoise and hare method
-		Node slow = node, fast = slow.next;
-		while (fast != null && fast.next != null) {
+		if(node==null || node.next==null) return;
+		
+		Node slow,fast,prevToSlow;
+		slow =fast=node;
+		prevToSlow=null;
+		while(fast!=null && fast.next!=null) {
+			prevToSlow = slow;
 			slow = slow.next;
 			fast = fast.next.next;
 		}
-//2) Split the linked list in two halves
-//node1, head of first half 1->> 2-> 3
-		Node node1 = node;
-		Node node2 = slow.next;
-		slow.next = null;
-		node2 = reverselist(node2);
-//4) Merge alternate nodes
-		node = new Node(0); // Assign dummy Node
-//curr is the pointer to this dummy Node, which will
-//be used to form the new list
-		Node curr = node;
-		while (node1 != null || node2 != null) {
-//First add the element from first list
-			if (node1 != null) {
-				curr.next = node1;
-				curr = curr.next;
-				node1 = node1.next;
-			}
-//Then add the element from second list
-			if (node2 != null) {
-				curr.next = node2;
-				curr = curr.next;
-				node2 = node2.next;
-			}
+		
+		Node middleNode = null;
+		if(fast!=null) {
+			middleNode = slow;
+			slow = slow.next;
 		}
-//Assign the head of the new list to head pointer
-		node = node.next;
+		
+		prevToSlow.next=null;
+		Node firstHalf = node;
+		Node secondHalf = slow;
+		secondHalf = reverse(secondHalf);
+
+		Node lastNode=null;
+		while(firstHalf!=null) {
+			Node nextA = firstHalf.next;
+			Node nextB = secondHalf.next;
+			firstHalf.next = secondHalf;
+			secondHalf.next=nextA;
+			secondHalf = nextB;
+			if(firstHalf.next.next==null) {
+				lastNode = firstHalf.next;
+			}
+			firstHalf = firstHalf.next.next;
+			
+		}
+		if(middleNode!=null && lastNode!=null) {
+			middleNode.next=null;
+			lastNode.next=middleNode;
+		}
 	}
 
 	public static void main(String[] args) {

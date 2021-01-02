@@ -1,7 +1,7 @@
 package LinkedListQuestions;
 
-//Linked List Class
-class RearrangeGivenLinkedList {
+
+class RearrangeSuchThatEleAtOddEvenPosTogether {
 	static Node head; // head of list
 	/* Node Class */
 
@@ -40,29 +40,26 @@ class RearrangeGivenLinkedList {
 
 	void rearrange(Node node) {
 		if(node==null || node.next==null) return;
-		Node temp = node;
-		while(temp.next!=null) {
-			Node t1 = temp;
-			
-			Node prevToLast =null;
-			Node lastNode = t1.next;
-			while(lastNode.next!=null) {
-				prevToLast =  lastNode;
-				lastNode = lastNode.next;
+		
+		Node odd = node;
+		Node even = node.next;
+		Node evenStart = even;
+		
+		while(odd.next!=null && even.next!=null) {
+			odd.next = even.next;
+			odd = odd.next;
+			even.next = odd.next;
+			even = even.next;
+			if(odd.next==null) {
+				odd.next = evenStart;
+				break;
 			}
 			
-			if(prevToLast!=null) {
-				prevToLast.next=null;
-				lastNode.next = temp.next;
-				temp.next=lastNode;
-			}
-			
-			temp = temp.next.next;
 		}
 	}
 
 	public static void main(String[] args) {
-		RearrangeGivenLinkedList list = new RearrangeGivenLinkedList();
+		RearrangeSuchThatEleAtOddEvenPosTogether list = new RearrangeSuchThatEleAtOddEvenPosTogether();
 		list.head = new Node(1);
 		list.head.next = new Node(2);
 		list.head.next.next = new Node(3);

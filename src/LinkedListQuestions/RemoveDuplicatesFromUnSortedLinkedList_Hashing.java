@@ -1,7 +1,9 @@
 package LinkedListQuestions;
 
+import java.util.HashMap;
+import java.util.Map;
 
-class RemoveDuplicatesFromSortedLinkedList {
+class RemoveDuplicatesFromUnSortedLinkedList_Hashing {
 	Node head; // head of list
 	/* Linked list Node */
 
@@ -16,13 +18,19 @@ class RemoveDuplicatesFromSortedLinkedList {
 	}
 
 	void removeDuplicates() {
+		Map<Integer,Boolean> map = new HashMap<>();
+		
 		Node curr = head;
+		Node prev=null;
 		while(curr!=null) {
-			Node temp = curr.next;
-			while(temp!=null && temp.data==curr.data) {
-				temp = temp.next;
+			
+			boolean isPresent = map.getOrDefault(curr.data,false);
+			if(isPresent) {
+				prev.next=curr.next;
+			}else {
+				map.put(curr.data, true);
+				prev = curr;
 			}
-			curr.next = temp;
 			curr = curr.next;
 		}
 	}
@@ -53,13 +61,14 @@ class RemoveDuplicatesFromSortedLinkedList {
 
 	/* Drier program to test above functions */
 	public static void main(String args[]) {
-		RemoveDuplicatesFromSortedLinkedList llist = new RemoveDuplicatesFromSortedLinkedList();
-		llist.push(20);
-		llist.push(13);
-		llist.push(13);
+		RemoveDuplicatesFromUnSortedLinkedList_Hashing llist = new RemoveDuplicatesFromUnSortedLinkedList_Hashing();
+		llist.push(10);
+		llist.push(11);
+		llist.push(12);
 		llist.push(11);
 		llist.push(11);
-		llist.push(11);
+		llist.push(12);
+		llist.push(10);
 		System.out.println("List before removal of duplicates");
 		llist.printList();
 		llist.removeDuplicates();
