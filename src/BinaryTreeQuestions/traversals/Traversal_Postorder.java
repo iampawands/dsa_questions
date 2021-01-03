@@ -1,9 +1,9 @@
-package BinaryTreeQuestions;
+package BinaryTreeQuestions.traversals;
 
 import java.util.Collections;
 import java.util.Stack;
 
-import BinaryTreeQuestions.Traversal_Inorder.Node;
+import BinaryTreeQuestions.traversals.Traversal_Inorder.Node;
 
 public class Traversal_Postorder {
 

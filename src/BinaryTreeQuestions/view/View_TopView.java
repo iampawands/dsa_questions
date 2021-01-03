@@ -1,9 +1,9 @@
-package BinaryTreeQuestions;
+package BinaryTreeQuestions.view;
 
 import java.util.*;
 import java.util.Map.Entry;
 
-import BinaryTreeQuestions.View_BottomView.Node;
+import BinaryTreeQuestions.view.View_BottomView.Node;
 
 
 

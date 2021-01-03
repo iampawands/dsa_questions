@@ -1,4 +1,4 @@
-package BinaryTreeQuestions;
+package BinaryTreeQuestions.view;
 
 import java.util.*;
 import java.util.Map.Entry;

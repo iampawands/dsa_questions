@@ -1,4 +1,4 @@
-package BinaryTreeQuestions;
+package BinaryTreeQuestions.traversals;
 import java.util.Stack;
 
 //A binary tree node

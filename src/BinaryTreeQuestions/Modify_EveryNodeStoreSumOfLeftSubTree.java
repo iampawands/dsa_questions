@@ -2,9 +2,7 @@ package BinaryTreeQuestions;
 
 import java.util.Stack;
 
-import BinaryTreeQuestions.Traversal_Preorder.Node;
-
-class Traversal_Inorder {
+class Modify_EveryNodeStoreSumOfLeftSubTree {
 
 	static class Node {
 
@@ -18,12 +16,6 @@ class Traversal_Inorder {
 	}
 
 	Node root;
-
-	void iterativeInorder() {
-		iterativeInorder(root);
-	}
-
-	// An iterative process to print preorder traversal of Binary tree
 	void iterativeInorder(Node node) {
 		Stack<Node> st = new Stack<>();
 		while(true) {
@@ -37,10 +29,9 @@ class Traversal_Inorder {
 			node = t.right;
 		}
 	}
-
 	// driver program to test above functions
 	public static void main(String args[]) {
-		Traversal_Inorder tree = new Traversal_Inorder();
+		Modify_EveryNodeStoreSumOfLeftSubTree tree = new Modify_EveryNodeStoreSumOfLeftSubTree();
 		tree.root = new Node(10);
 		tree.root.left = new Node(20);
 	    tree.root.right = new Node(30);
@@ -49,7 +40,19 @@ class Traversal_Inorder {
 	    tree.root.left.right = new Node(50);
 	    tree.root.right.left = new Node(60);
 	    tree.root.left.left.right = new Node(80);
-		tree.iterativeInorder();
+		tree.modifyTree(tree.root);
+		tree.iterativeInorder(tree.root);
+	}
+
+	private int modifyTree(Node node) {
+		if(node==null) return 0;
+		int sum = 0;
+		int lsum = modifyTree(node.left);
+		int rsum = modifyTree(node.right);
+		
+		node.data = lsum + node.data;
+		
+		return node.data+rsum;
 	}
 }
 
