@@ -28,16 +28,16 @@ class Traversal_Preorder {
 	// An iterative process to print preorder traversal of Binary tree
 	void iterativePreorder(Node node)
 	{
-		Stack<Node> stack = new Stack<Node>();
+		Stack<Node> st = new Stack<>();
 		while(true) {
 			while(node!=null) {
 				System.out.print(node.data+" ");
-				stack.push(node);
+				st.push(node);
 				node = node.left;
 			}
-			if(stack.isEmpty()) break;
-			Node temp = stack.pop();
-			node = temp.right;
+			if(st.isEmpty()) break;
+			Node t = st.pop();
+			node = t.right;
 		}
 	}
 
@@ -58,3 +58,4 @@ class Traversal_Preorder {
 }
 
 //This code has been contributed by Mayank Jaiswal
+ 

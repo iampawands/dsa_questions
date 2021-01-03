@@ -2,6 +2,8 @@ package BinaryTreeQuestions;
 
 import java.util.Stack;
 
+import BinaryTreeQuestions.Traversal_Preorder.Node;
+
 class Traversal_Inorder {
 
 	static class Node {
@@ -23,17 +25,16 @@ class Traversal_Inorder {
 
 	// An iterative process to print preorder traversal of Binary tree
 	void iterativeInorder(Node node) {
-		Stack<Node> stack = new Stack<Node>();
-		while (true) {
-			while (node != null) {
-				stack.push(node);
+		Stack<Node> st = new Stack<>();
+		while(true) {
+			while(node!=null) {
+				st.push(node);
 				node = node.left;
 			}
-			if (stack.isEmpty())
-				break;
-			Node temp = stack.pop();
-			System.out.print(temp.data+" ");
-			node = temp.right;
+			if(st.isEmpty()) break;
+			Node t = st.pop();
+			System.out.print(t.data+" ");
+			node = t.right;
 		}
 	}
 
@@ -41,11 +42,13 @@ class Traversal_Inorder {
 	public static void main(String args[]) {
 		Traversal_Inorder tree = new Traversal_Inorder();
 		tree.root = new Node(10);
-		tree.root.left = new Node(8);
-		tree.root.right = new Node(2);
-		tree.root.left.left = new Node(3);
-		tree.root.left.right = new Node(5);
-		tree.root.right.left = new Node(2);
+		tree.root.left = new Node(20);
+	    tree.root.right = new Node(30);
+	    tree.root.left.left = new Node(40);
+	    tree.root.left.left.left = new Node(70);
+	    tree.root.left.right = new Node(50);
+	    tree.root.right.left = new Node(60);
+	    tree.root.left.left.right = new Node(80);
 		tree.iterativeInorder();
 	}
 }
